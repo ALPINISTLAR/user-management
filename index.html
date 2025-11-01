@@ -5,26 +5,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- ======================================= -->
-  <!-- =====         GOOGLE FONTS         ==== -->
-  <!-- ======================================= -->
-
-
-
-  <!-- =============================== -->
   <!-- =====       STYLES        ===== -->
-  <!-- =============================== -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!-- ***   MAIN SECTION   *** -->
+  <main class="main-content">
+    <div class="container">
+      <h2 class="heading">User management</h2>
+      <div class="form-wrapper">
 
+        <!-- SEARCH -->
+        <form class="form">
+          <h3 class="input-heading">search users</h3>
+          <input class="search-input" type="search">
+        </form>
 
+        <!-- 'ADD NEW' INPUTS  -->
+        <form class="form">
+          <h3 class="input-heading">Add new user</h3>
+          <input class="add-input" type="text" name="username" placeholder="Your name" aria-label="Name" required>
+          <input class="add-input" type="number" name="age"  placeholder="Your age" aria-label="Age" required>
+          <input class="add-input" type="email" name="email" placeholder="Your email" aria-label="Email" required>
+          <div class="color-int-wrp">
+            <p>Your favourite color:</p>
+            <input class="color-input" type="color">
+            <button class="button" type="submit">submit</button>
+          </div>
+        </form>
+      </div>
 
-<!-- ************************ -->
-<!-- ***   MAIN SECTION   *** -->
-<!-- ************************ -->
-<main class="main-content"></main>
+      <div class="result">
+        <!-- Select dropdown -->
+        <div class="filter-container">
+          <select id="Filter" class="custom-select">
+            <option value="all" selected>All</option>
+            <option value="age">Age</option>
+            <option value="color">Name</option>
+            <option value="asia">Color</option>
+          </select>
+        </div>
+
+        <div class="card-wrapper">
+        </div>
+      </div>
+    </div>
+  </main>
 
   <script src="js/main.js"></script>
 </body>
