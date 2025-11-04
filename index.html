@@ -19,7 +19,7 @@
         <!-- SEARCH -->
         <form class="form">
           <h3 class="input-heading">search users</h3>
-          <input class="search-input" type="search">
+          <input id="search" class="search-input" type="search" placeholder="Search by name..">
         </form>
 
         <!-- 'ADD NEW' INPUTS  -->
@@ -37,15 +37,15 @@
       </div>
 
       <div class="result">
-        <!-- Select dropdown -->
-        <div class="filter-container">
-          <select id="Filter" class="custom-select">
-            <option value="all" selected>All</option>
-            <option value="age">Age</option>
-            <option value="color">Name</option>
-            <option value="asia">Color</option>
-          </select>
-        </div>
+<div>
+  <select id="sorting" class="custom-select">
+    <option value="all" selected>All</option>
+    <option value="name">Name</option>
+    <option value="age">Age</option>
+    <option value="color">Color</option>
+  </select>
+</div>
+
 
         <div id="card-wrap" class="card-wrapper">
 
