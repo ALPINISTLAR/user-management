@@ -17,17 +17,16 @@ if (localStorage.getItem(STORAGE_KEY)) {
 }
 
 SearchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
+  const searchTerm = this.value.toLowerCase();
 
-    const filteredUsers = Users.filter(user => user.name.toLowerCase().includes(searchTerm));
+  const filteredUsers = Users.filter(user => user.name.toLowerCase().includes(searchTerm));
 
-    renderUsers(filteredUsers);
+  renderUsers(filteredUsers);
 });
 
 Age.addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9]/g, '');
 });
-
 
 filterSelect.addEventListener('change', function() {
   const value = this.value;
@@ -100,6 +99,9 @@ AddButton.addEventListener('click', function(event) {
 function renderUsers(UsersArray = Users) {
   usersContainer.innerHTML = "";
   localStorage.setItem(STORAGE_KEY, JSON.stringify(Users));
+
+  const totalUsersDiv = document.getElementById('total-users');
+  totalUsersDiv.textContent = `Total Users: ${UsersArray.length}`;
 
   UsersArray.forEach(function(user, index) {
     const card = document.createElement('div');

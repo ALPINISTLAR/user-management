@@ -145,18 +145,28 @@ input[type=color]{
 .button:active{
   opacity: 0.7;
 }
+
+.result{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.total-sort-wrapper{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+#total-users{
+  font-size: 22px;
+  font-weight: 600;
+}
 select{
 cursor: pointer;
 padding: 6px 12px;
 background-color: #fff;
 border-radius: 5px;
 border: none;
-}
-.result{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 24px;
 }
 .card-wrapper{
   display: grid;
