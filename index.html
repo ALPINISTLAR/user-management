@@ -25,13 +25,13 @@
         <!-- 'ADD NEW' INPUTS  -->
         <form class="form">
           <h3 class="input-heading">Add new user</h3>
-          <input class="add-input" type="text" name="username" placeholder="Your name" aria-label="Name" required>
-          <input class="add-input" type="number" name="age"  placeholder="Your age" aria-label="Age" required>
-          <input class="add-input" type="email" name="email" placeholder="Your email" aria-label="Email" required>
+          <input id="username" class="add-input" type="text" name="username" placeholder="User name" aria-label="Name">
+          <input id="age" class="add-input" type="number" name="age"  placeholder="User age" aria-label="Age" min="1" max="100">
+          <input id="email" class="add-input" type="email" name="email" placeholder="User email" aria-label="Email">
           <div class="color-int-wrp">
-            <p>Your favourite color:</p>
-            <input class="color-input" type="color">
-            <button class="button" type="submit">submit</button>
+            <p>User color:</p>
+            <input id="color" class="color-input" type="color">
+            <button id="add-user" class="button" type="submit">add user</button>
           </div>
         </form>
       </div>
@@ -47,7 +47,8 @@
           </select>
         </div>
 
-        <div class="card-wrapper">
+        <div id="card-wrap" class="card-wrapper">
+
         </div>
       </div>
     </div>
