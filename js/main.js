@@ -5,6 +5,8 @@ const Color = document.getElementById('color');
 const AddButton = document.getElementById('add-user');
 const usersContainer = document.getElementById('card-wrap');
 const STORAGE_KEY = 'users';
+const SearchInput = document.getElementById('search');
+const filterSelect = document.getElementById('sorting');
 let Users = [];
 let isEditing = false;
 let currentIndex = null;
@@ -14,9 +16,33 @@ if (localStorage.getItem(STORAGE_KEY)) {
   renderUsers();
 }
 
+SearchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+
+    const filteredUsers = Users.filter(user => user.name.toLowerCase().includes(searchTerm));
+
+    renderUsers(filteredUsers);
+});
+
 Age.addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9]/g, '');
 });
+
+
+filterSelect.addEventListener('change', function() {
+  const value = this.value;
+
+  if(value === 'name') {
+    Users.sort((a,b) => a.name.toLowerCase().localeCompare(b.name));
+  } else if(value === 'age') {
+    Users.sort((a,b) => a.age - b.age);
+  } else if(value === 'color') {
+    Users.sort((a,b) => a.color.toLowerCase().localeCompare(b.color));
+  }
+
+  renderUsers();
+});
+
 
 AddButton.addEventListener('click', function(event) {
   event.preventDefault();
@@ -71,11 +97,11 @@ AddButton.addEventListener('click', function(event) {
   }
 });
 
-function renderUsers() {
+function renderUsers(UsersArray = Users) {
   usersContainer.innerHTML = "";
-
   localStorage.setItem(STORAGE_KEY, JSON.stringify(Users));
-  Users.forEach(function(user, index) {
+
+  UsersArray.forEach(function(user, index) {
     const card = document.createElement('div');
     card.classList.add('card');
     card.style.border = `3px solid ${user.color}`;
