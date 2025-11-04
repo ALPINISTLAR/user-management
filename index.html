@@ -25,36 +25,43 @@
         <!-- 'ADD NEW' INPUTS  -->
         <form class="form">
           <h3 class="input-heading">Add new user</h3>
-          <input id="username" class="add-input" type="text" name="username" placeholder="User name" aria-label="Name">
-          <input id="age" class="add-input" type="number" name="age"  placeholder="User age" aria-label="Age" min="1" max="100">
-          <input id="email" class="add-input" type="email" name="email" placeholder="User email" aria-label="Email">
-          <div class="color-int-wrp">
-            <p>User color:</p>
-            <input id="color" class="color-input" type="color">
-            <button id="add-user" class="button" type="submit">add user</button>
+          <div>
+            <input id="username" class="add-input" type="text" name="username" placeholder="User name" aria-label="Name">
+            <small id="name-error" class="error-message"></small>
           </div>
-        </form>
-      </div>
+          <div>
+            <input id="age" class="add-input" type="number" name="age"  placeholder="User age" aria-label="Age" min="1" max="100">
+            <small id="age-error" class="error-message"></small>
+          </div>
+          <div><input id="email" class="add-input" type="email" name="email" placeholder="User email" aria-label="Email">
+            <small id="email-error" class="error-message"></small></div>
+            <div class="color-int-wrp">
+              <p>User color:</p>
+              <input id="color" class="color-input" type="color">
+              <button id="add-user" class="button" type="submit">add user</button>
+            </div>
+          </form>
+        </div>
 
-      <div class="result">
-<div class="total-sort-wrapper">
-  <div id="total-users">Total users: 0</div>
-  <select id="sorting" class="custom-select">
-    <option value="all" selected>All</option>
-    <option value="name">Name</option>
-    <option value="age">Age</option>
-    <option value="color">Color</option>
-  </select>
-</div>
+        <div class="result">
+          <div class="total-sort-wrapper">
+            <div id="total-users">Total users: 0</div>
+            <select id="sorting" class="custom-select">
+              <option value="all" selected>All</option>
+              <option value="name">Name</option>
+              <option value="age">Age</option>
+              <option value="color">Color</option>
+            </select>
+          </div>
 
 
-        <div id="card-wrap" class="card-wrapper">
+          <div id="card-wrap" class="card-wrapper">
 
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <script src="js/main.js"></script>
-</body>
-</html>
+    <script src="js/main.js"></script>
+  </body>
+  </html>

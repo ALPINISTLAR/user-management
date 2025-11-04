@@ -35,7 +35,7 @@ img
   height: auto;
 }
 /* * * / AUTOFILL STYLES \ * * */
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
@@ -47,7 +47,7 @@ select:-webkit-autofill:focus {
   border-color: transparent;
   -webkit-text-fill-color: inherit;
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-}
+} */
 /* * * VISUALLY HIDDEN * * */
 .visually-hidden {
   position: absolute;
@@ -81,7 +81,8 @@ input{
   border: none;
   padding: 6px 12px;
   border-radius: 8px;
-  width: 80%;
+  width: 100%;
+  border: 2px solid transparent;
 }
 input[type=color]{
   cursor: pointer;
@@ -98,8 +99,20 @@ input[type=color]{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   width: calc(50% - 25px);
+}
+.form div{
+  position: relative;
+  width: 80%;
+  padding-bottom: 20px;
+}
+.form div:last-child{
+  padding-bottom: 0;
+}
+small{
+  position: absolute;
+  left: 10px;
+  bottom: 0;
 }
 .heading {
   width: 100%;
@@ -107,6 +120,10 @@ input[type=color]{
   font-size: 36px;
   margin-bottom: 24px;
 }
+.input-error {
+  border-color: red;
+}
+
 .input-heading{
   text-transform: capitalize;
   font-size: 20px;
@@ -153,20 +170,20 @@ input[type=color]{
 }
 
 .total-sort-wrapper{
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #total-users{
   font-size: 22px;
   font-weight: 600;
 }
 select{
-cursor: pointer;
-padding: 6px 12px;
-background-color: #fff;
-border-radius: 5px;
-border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: none;
 }
 .card-wrapper{
   display: grid;
@@ -210,12 +227,17 @@ border: none;
   border-radius: 5px;
   background-color: transparent;
 }
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  font-style: italic;
+}
 
 @keyframes glow {
-    from {
-        box-shadow: 0 0 10px yellow;
-    }
-    to {
-        box-shadow: 0 0 20px red;
-    }
+  from {
+    box-shadow: 0 0 10px yellow;
+  }
+  to {
+    box-shadow: 0 0 20px red;
+  }
 }

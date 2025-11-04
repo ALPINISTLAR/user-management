@@ -11,11 +11,13 @@ let Users = [];
 let isEditing = false;
 let currentIndex = null;
 
+// LOCAL STORAGE
 if (localStorage.getItem(STORAGE_KEY)) {
   Users = JSON.parse(localStorage.getItem(STORAGE_KEY));
   renderUsers();
 }
 
+// SEARCH
 SearchInput.addEventListener('input', function() {
   const searchTerm = this.value.toLowerCase();
 
@@ -28,6 +30,7 @@ Age.addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9]/g, '');
 });
 
+// SORTING
 filterSelect.addEventListener('change', function() {
   const value = this.value;
 
@@ -42,7 +45,7 @@ filterSelect.addEventListener('change', function() {
   renderUsers();
 });
 
-
+// ADD USERS
 AddButton.addEventListener('click', function(event) {
   event.preventDefault();
 
@@ -51,51 +54,88 @@ AddButton.addEventListener('click', function(event) {
   const emailValue = Email.value.trim();
   const colorValue = Color.value.trim();
 
-  if (
-    nameValue !== "" &&
-    emailValue.includes("@") &&
-    !isNaN(ageValue) &&
-    ageValue > 0 &&
-    ageValue <= 100 &&
-    colorValue !== ""
-  ) {
+  document.getElementById('name-error').textContent = '';
+  document.getElementById('email-error').textContent = '';
+  document.getElementById('age-error').textContent = '';
 
-    if (isEditing) {
-      Users[currentIndex] = {
-        name: nameValue,
-        age: Number(ageValue),
-        email: emailValue,
-        color: colorValue
-      };
+  Name.classList.remove('input-error');
+  Email.classList.remove('input-error');
+  Age.classList.remove('input-error');
 
-      isEditing = false;
-      currentIndex = null;
-      AddButton.textContent = 'Add User';
-    }
+  let isValid = true;
 
-    else {
-      const user = {
-        name: nameValue,
-        age: Number(ageValue),
-        email: emailValue,
-        color: colorValue
-      };
-
-      Users.push(user);
-    }
-    renderUsers();
-
-    Name.value = '';
-    Age.value = '';
-    Email.value = '';
-    Color.value = '';
+  // Validation
+  // NAME
+  if(nameValue === '') {
+    document.getElementById('name-error').textContent = 'Name is required';
+    Name.classList.add('input-error');
+    isValid = false;
+  } else if(!/^[a-zA-Z\s]+$/.test(nameValue)) {
+    document.getElementById('name-error').textContent = 'Name can contain only letters';
+    Name.classList.add('input-error');
+    isValid = false;
+  } else {
+    document.getElementById('name-error').textContent = '';
+    Name.classList.remove('input-error');
+  }
+  // EMAIL
+  if(emailValue === '') {
+    document.getElementById('email-error').textContent = 'Email is required';
+    Email.classList.add('input-error');
+    isValid = false;
+  } else if(!emailValue.includes('@')) {
+    document.getElementById('email-error').textContent = "Email must include '@'";
+    Email.classList.add('input-error');
+    isValid = false;
+  } else {
+    document.getElementById('email-error').textContent = '';
+    Email.classList.remove('input-error');
+  }
+  // AGE
+  if(ageValue === '') {
+    document.getElementById('age-error').textContent = 'Age is required';
+    Age.classList.add('input-error');
+    isValid = false;
+  } else if(isNaN(ageValue) || ageValue <= 0 || ageValue > 100) {
+    document.getElementById('age-error').textContent = 'Age must be a positive number (1-100)';
+    Age.classList.add('input-error');
+    isValid = false;
+  } else {
+    document.getElementById('age-error').textContent = '';
+    Age.classList.remove('input-error');
   }
 
-  else {
-    alert("Please enter valid data. Name must be text, Age must be positive number and email must include '@'.");
+  if(!isValid) return;
+
+  if(isEditing) {
+    Users[currentIndex] = {
+      name: nameValue,
+      age: Number(ageValue),
+      email: emailValue,
+      color: colorValue
+    };
+    isEditing = false;
+    currentIndex = null;
+    AddButton.textContent = 'Add User';
+  } else {
+    const user = {
+      name: nameValue,
+      age: Number(ageValue),
+      email: emailValue,
+      color: colorValue
+    };
+    Users.push(user);
   }
+
+  renderUsers();
+
+  Name.value = '';
+  Age.value = '';
+  Email.value = '';
+  Color.value = '';
 });
 
+// RENDER USERS
 function renderUsers(UsersArray = Users) {
   usersContainer.innerHTML = "";
   localStorage.setItem(STORAGE_KEY, JSON.stringify(Users));
@@ -122,6 +162,7 @@ function renderUsers(UsersArray = Users) {
             <div class="button-wrapper">
             </div>
 `;
+// DELETE BUTTON
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('button');
     deleteBtn.textContent = 'Delete';
@@ -132,7 +173,7 @@ function renderUsers(UsersArray = Users) {
       Users.splice(i, 1);
       renderUsers();
     });
-
+// EDIT BUTTON
     const editBtn = document.createElement('button');
     editBtn.classList.add('button');
     editBtn.textContent = 'Edit';
