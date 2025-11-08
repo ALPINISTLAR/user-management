@@ -162,7 +162,12 @@ small{
 .button:active{
   opacity: 0.7;
 }
-
+.button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  border-color: transparent;
+}
 .result{
   display: flex;
   flex-direction: column;

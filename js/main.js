@@ -29,6 +29,7 @@
   let Users = [];
   let isEditing = false;
   let currentDocId = null;
+  let initialUserData = {};
 
   // REAL-TIME LISTENING
   onSnapshot(collection(db, FIREBASE_COLLECTION), (snapshot) => {
@@ -193,6 +194,7 @@
         isEditing = true;
         currentDocId = user.id;
         AddButton.textContent = 'Save Changes';
+        AddButton.disabled = true;
         document.querySelectorAll('.card').forEach(c => c.classList.remove('active-card'));
         card.classList.add('active-card');
 
@@ -203,10 +205,21 @@
 
         document.querySelector('.form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
         Name.focus();
+        initialUserData = { ...user };
       });
       const btnWrap = card.querySelector('.button-wrapper');
       btnWrap.appendChild(editBtn);
       btnWrap.appendChild(deleteBtn);
       usersContainer.appendChild(card);
     });
-  }
+  };
+  [Name, Age, Email, Color].forEach(input => {
+    input.addEventListener('input', () => {
+      const hasChanges = Name.value !== initialUserData.name ||
+      Age.value != initialUserData.age ||
+      Email.value !== initialUserData.email ||
+      Color.value !== initialUserData.color;
+
+      AddButton.disabled = !hasChanges;
+    });
+  });
