@@ -87,46 +87,28 @@
     Age.classList.remove('input-error');
 
     // Validation
-    // NAME
-    if(nameValue === '') {
-      document.getElementById('name-error').textContent = 'Name is required';
+  if (nameValue === '' || !/^[a-zA-Z\s]+$/.test(nameValue)) {
+    document.getElementById('name-error').textContent = nameValue === '' ? 'Name is required' : 'Name can contain only letters';
       Name.classList.add('input-error');
       isValid = false;
-    } else if(!/^[a-zA-Z\s]+$/.test(nameValue)) {
-      document.getElementById('name-error').textContent = 'Name can contain only letters';
-      Name.classList.add('input-error');
-      isValid = false;
-    } else {
-      document.getElementById('name-error').textContent = '';
-      Name.classList.remove('input-error');
-    }
-    // EMAIL
-    if(emailValue === '') {
-      document.getElementById('email-error').textContent = 'Email is required';
+  }
+
+  if (emailValue === '' || !emailValue.includes('@')) {
+    document.getElementById('email-error').textContent = emailValue === '' ? 'Email is required' : "Email must include '@'";
       Email.classList.add('input-error');
       isValid = false;
-    } else if(!emailValue.includes('@')) {
-      document.getElementById('email-error').textContent = "Email must include '@'";
-      Email.classList.add('input-error');
-      isValid = false;
-    } else {
-      document.getElementById('email-error').textContent = '';
-      Email.classList.remove('input-error');
-    }
-    // AGE
-    if(ageValue === '') {
-      document.getElementById('age-error').textContent = 'Age is required';
-      Age.classList.add('input-error');
-      isValid = false;
-    } else if(isNaN(ageValue) || ageValue <= 0 || ageValue > 100) {
-      document.getElementById('age-error').textContent = 'Age must be a positive number (1-100)';
+  }
+
+  if (ageValue === '' || isNaN(ageValue) || ageValue <= 0 || ageValue > 100) {
+    document.getElementById('age-error').textContent = ageValue === '' ? 'Age is required' : 'Age must be a positive number (1-100)';
       Age.classList.add('input-error');
       isValid = false;
     } else {
       document.getElementById('age-error').textContent = '';
       Age.classList.remove('input-error');
     }
-    if(!isValid) return;
+
+  if (!isValid) return;
 
     const user = {
       name: nameValue,
