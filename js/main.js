@@ -68,73 +68,76 @@
   });
 
   // ADD USERS
-  AddButton.addEventListener('click', async function(event) {
-    event.preventDefault();
+AddButton.addEventListener('click', async function(event) {
+  event.preventDefault();
 
-    const nameValue = Name.value.trim();
-    const ageValue = Age.value.trim();
-    const emailValue = Email.value.trim();
-    const colorValue = Color.value.trim() || '#000000';
+  const nameValue = Name.value.trim();
+  const ageValue = Age.value.trim();
+  const emailValue = Email.value.trim();
+  const colorValue = Color.value.trim() || '#000000';
 
+  let isValid = true;
+  document.getElementById('name-error').textContent = '';
+  document.getElementById('email-error').textContent = '';
+  document.getElementById('age-error').textContent = '';
 
-    let isValid = true;
-    document.getElementById('name-error').textContent = '';
-    document.getElementById('email-error').textContent = '';
-    document.getElementById('age-error').textContent = '';
+  Name.classList.remove('input-error');
+  Email.classList.remove('input-error');
+  Age.classList.remove('input-error');
 
-    Name.classList.remove('input-error');
-    Email.classList.remove('input-error');
-    Age.classList.remove('input-error');
-
-    // Validation
+  // Validation
   if (nameValue === '' || !/^[a-zA-Z\s]+$/.test(nameValue)) {
     document.getElementById('name-error').textContent = nameValue === '' ? 'Name is required' : 'Name can contain only letters';
-      Name.classList.add('input-error');
-      isValid = false;
+    Name.classList.add('input-error');
+    isValid = false;
   }
 
   if (emailValue === '' || !emailValue.includes('@')) {
     document.getElementById('email-error').textContent = emailValue === '' ? 'Email is required' : "Email must include '@'";
-      Email.classList.add('input-error');
-      isValid = false;
+    Email.classList.add('input-error');
+    isValid = false;
   }
 
   if (ageValue === '' || isNaN(ageValue) || ageValue <= 0 || ageValue > 100) {
     document.getElementById('age-error').textContent = ageValue === '' ? 'Age is required' : 'Age must be a positive number (1-100)';
-      Age.classList.add('input-error');
-      isValid = false;
-    } else {
-      document.getElementById('age-error').textContent = '';
-      Age.classList.remove('input-error');
-    }
+    Age.classList.add('input-error');
+    isValid = false;
+  }
 
   if (!isValid) return;
 
-    const user = {
-      name: nameValue,
-      age: Number(ageValue),
-      email: emailValue,
-      color: colorValue
-    };
-    try {
-      if (isEditing && currentDocId) {
-        await updateDoc(doc(db, FIREBASE_COLLECTION, currentDocId), user);
+  const user = {
+    name: nameValue,
+    age: Number(ageValue),
+    email: emailValue,
+    color: colorValue
+  };
 
-        isEditing = false;
-        currentDocId = null;
-        AddButton.textContent = 'Add user';
-      } else {
-        await addDoc(collection(db, FIREBASE_COLLECTION), user);
-      }
+  try {
+    AddButton.disabled = true;
+    AddButton.textContent = isEditing ? 'Saving...' : 'Adding...';
 
-      Name.value = '';
-      Age.value = '';
-      Email.value = '';
-      Color.value = '#000000';
-    } catch (error) {
-      console.error("Error adding/updating user:", error);
+    if (isEditing && currentDocId) {
+      await updateDoc(doc(db, FIREBASE_COLLECTION, currentDocId), user);
+      isEditing = false;
+      currentDocId = null;
+    } else {
+      await addDoc(collection(db, FIREBASE_COLLECTION), user);
     }
-  });
+
+    // Clear inputs
+    Name.value = '';
+    Age.value = '';
+    Email.value = '';
+    Color.value = '#000000';
+
+  } catch (error) {
+    console.error("Error adding/updating user:", error);
+  } finally {
+    AddButton.disabled = false;
+    AddButton.textContent = isEditing ? 'Save Changes' : 'Add User';
+  }
+});
 
   // RENDER USERS
   function renderUsers(UsersArray = Users) {
