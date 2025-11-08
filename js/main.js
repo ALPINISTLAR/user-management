@@ -200,6 +200,9 @@
         Age.value = user.age;
         Email.value = user.email;
         Color.value = user.color;
+
+        document.querySelector('.form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        Name.focus();
       });
       const btnWrap = card.querySelector('.button-wrapper');
       btnWrap.appendChild(editBtn);
