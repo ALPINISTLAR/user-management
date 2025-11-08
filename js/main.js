@@ -33,6 +33,9 @@
   // REAL-TIME LISTENING
   onSnapshot(collection(db, FIREBASE_COLLECTION), (snapshot) => {
     Users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const loadingEl = document.getElementById('loading');
+    if (loadingEl) loadingEl.remove();
+
     renderUsers(Users);
   });
 
