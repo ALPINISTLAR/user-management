@@ -147,7 +147,7 @@
       Name.value = '';
       Age.value = '';
       Email.value = '';
-      Color.value = '';
+      Color.value = '#000000';
     } catch (error) {
       console.error("Error adding/updating user:", error);
     }
